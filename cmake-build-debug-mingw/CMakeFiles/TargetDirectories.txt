@@ -1,0 +1,8 @@
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/CMakeFiles/glutdlllib.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/CMakeFiles/mine.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/_deps/glm-build/CMakeFiles/edit_cache.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/_deps/glm-build/CMakeFiles/rebuild_cache.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/_deps/glm-build/glm/CMakeFiles/edit_cache.dir
+C:/Users/Marcilio/Marcilio/PROJECTS/CPP/mine/cmake-build-debug-mingw/_deps/glm-build/glm/CMakeFiles/rebuild_cache.dir

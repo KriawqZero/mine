@@ -27,7 +27,7 @@ namespace Minecraft
             if (cmd == "exit") {
                 running = false; // Sinaliza para encerrar o programa
             } else if (cmd == "show_fps") {
-                std::cout << "FPS: 60 (mock value)" << std::endl;
+                std::cout << "FPS: (mock value)" << std::endl;
             } else if (cmd == "spawn_block") {
                 GLfloat x, y, z;
                 if (iss >> x >> y >> z) {

@@ -8,10 +8,7 @@
 #include <sstream>
 #include <thread>
 
-#include "imgui_impl_opengl3.h"
-#include "imgui.h"
-#include "../debug/ImGui.hpp"
-
+#include "../GameHelpers/Callbacks/Callbacks.hpp"
 #include "GLFW/glfw3.h"
 #include "../GameHelpers/Miscellaneous/GameHelper.hpp"
 #include "../GameHelpers/Camera/Camera.hpp"
@@ -149,7 +146,7 @@ namespace Minecraft
         }
 
         //std::cout << chunk->getBlocks() << std::endl;
-        debug::DebugTool::InitDebugTool(window);
+        // debug::DebugTool::InitDebugTool(window);
     }
 
     void Game::update() {
@@ -157,7 +154,7 @@ namespace Minecraft
         glLoadIdentity();
         camera.update(deltaTime);
 
-        debug::DebugTool::renderMainWindow();
+        // debug::DebugTool::renderMainWindow();
 
         for(auto* object : objects) {
             object->Render();
@@ -179,20 +176,20 @@ namespace Minecraft
             //std::cout << "FPS: " << fps << std::endl;  // Exibe no console
         }
 
-        debug::DebugTool::renderFpsMSdebug(deltaTime, fps, this);
-        debugTool.debugWindow(this);
+        // debug::DebugTool::renderFpsMSdebug(deltaTime, fps, this);
+        // debugTool.debugWindow(this);
 
         const float angularVelocity = 60 * deltaTime;
         angle += angularVelocity;// Draw ImGui UI
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //
+        // ImGui::Render();
+        // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
     // ReSharper disable once CppMemberFunctionMayBeStatic
     void Game::finish() { // NOLINT(*-convert-member-functions-to-static)
         glDisable(GL_CULL_FACE);
-        debug::DebugTool::DestroyDebugTool();
+        // debug::DebugTool::DestroyDebugTool();
     }
 
 
@@ -207,10 +204,10 @@ namespace Minecraft
         glfwSetWindowUserPointer(window, &camera);
 
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        glfwSetCursorPosCallback(window, GameHelpers::Camera::cameraInput_MouseCallback);
-        glfwSetKeyCallback(window, GameHelpers::Camera::cameraInput_KeyCallback);
-        glfwSetWindowFocusCallback(window, GameHelpers::Camera::windowFocusCallback);
-        glfwSetMouseButtonCallback(window, GameHelpers::Camera::mouseButtonCallback);
+        glfwSetCursorPosCallback(window, GameHelpers::Callbacks::cameraInput_MouseCallback);
+        glfwSetKeyCallback(window, GameHelpers::Callbacks::cameraInput_KeyCallback);
+        glfwSetWindowFocusCallback(window, GameHelpers::Callbacks::windowFocusCallback);
+        glfwSetMouseButtonCallback(window, GameHelpers::Callbacks::mouseButtonCallback);
 
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 

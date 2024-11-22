@@ -30,6 +30,21 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glm)
 
+set(RESOURCE_FILES resources/resources.rc)
+set(IMGUI_FILES vendor/imgui/backends/imgui_impl_glfw.cpp
+        vendor/imgui/backends/imgui_impl_glfw.h
+        vendor/imgui/backends/imgui_impl_opengl2.cpp
+        vendor/imgui/backends/imgui_impl_opengl2.h
+        vendor/imgui/backends/imgui_impl_opengl3.cpp
+        vendor/imgui/backends/imgui_impl_opengl3.h
+        vendor/imgui/imgui.cpp
+        vendor/imgui/imgui.h
+        vendor/imgui/imgui_demo.cpp
+        vendor/imgui/imgui_draw.cpp
+        vendor/imgui/imgui_internal.h
+        vendor/imgui/imgui_tables.cpp
+        vendor/imgui/imgui_widgets.cpp)
+
 # Definir os arquivos fonte
 set(SOURCE_FILES sources/main.cpp
 
@@ -65,24 +80,7 @@ set(SOURCE_FILES sources/main.cpp
 
                  sources/World/WorldGen/Chunk.cpp
                  sources/World/WorldGen/Chunk.hpp
-
-                 sources/debug/ImGui.cpp
-                 sources/debug/ImGui.hpp)
-
-set(RESOURCE_FILES resources/resources.rc)
-set(IMGUI_FILES vendor/imgui/backends/imgui_impl_glfw.cpp
-                vendor/imgui/backends/imgui_impl_glfw.h
-                vendor/imgui/backends/imgui_impl_opengl2.cpp
-                vendor/imgui/backends/imgui_impl_opengl2.h
-                vendor/imgui/backends/imgui_impl_opengl3.cpp
-                vendor/imgui/backends/imgui_impl_opengl3.h
-                vendor/imgui/imgui.cpp
-                vendor/imgui/imgui.h
-                vendor/imgui/imgui_demo.cpp
-                vendor/imgui/imgui_draw.cpp
-                vendor/imgui/imgui_internal.h
-                vendor/imgui/imgui_tables.cpp
-                vendor/imgui/imgui_widgets.cpp)
+)
 
 add_executable(mine ${SOURCE_FILES} ${RESOURCE_FILES} ${IMGUI_FILES})
 

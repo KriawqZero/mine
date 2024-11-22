@@ -16,13 +16,6 @@ namespace GameHelpers {
 
             void update(GLfloat currentDeltaTime);
 
-            static void cameraInput_KeyCallback(GLFWwindow* window,
-                int key, int scancode, int action, int mods);
-            static void cameraInput_MouseCallback(GLFWwindow* window,
-                double xpos, double ypos);
-            static void windowFocusCallback(GLFWwindow* window, int focused);
-            static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-
             static void updateViewport(GLFWwindow *window);
 
             bool keyStates[1024] = {false};

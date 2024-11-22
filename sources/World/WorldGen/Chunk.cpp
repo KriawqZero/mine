@@ -4,10 +4,12 @@
 
 #include "Chunk.hpp"
 
+#include <bits/fs_fwd.h>
+
 namespace World {
     Chunk::Chunk() {
-        size = 8;
-        height = 4;
+        size = 2;
+        height = 3;
     }
 
     Chunk::~Chunk() = default;
@@ -19,8 +21,8 @@ namespace World {
     }
 
     void Chunk::displayChunk() const {
-        for(auto& block : blocks) {
-            block.Render();
+        for(int i = 0; i < blocks.size(); i++) {
+            blocks[i].Render();
         }
     }
 
@@ -39,7 +41,7 @@ namespace World {
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
                 //std::cout << "Criando bloco em: " << i << ", " << y << ", " << j << std::endl;
-                const auto* temp_block = new Block(glm::vec3(i, y, j), Block::STONE);
+                const auto* temp_block = new Block(glm::vec3(i, y, j), Block::GRASS);
                 temp_block->makeBlock();
                 blocks.push_back(*temp_block);
             }

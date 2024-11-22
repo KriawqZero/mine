@@ -39,6 +39,8 @@ namespace Minecraft
                 getObjects();
             } else if (cmd == "get_position") {
                 getPosition();
+            } else if (cmd == "get_chunk_data") {
+                getChunkData();
             } else {
                 std::cout << "Comando desconhecido: " << command << std::endl;
             }
@@ -73,6 +75,13 @@ namespace Minecraft
         std::cout << x << ", " << y << ", " << z << std::endl;
     }
 
+    void Game::getChunkData() const {
+        for (int i = 0; i < chunks.size(); ++i) {
+            std::cout << "Chunk " << i << ":";
+            std::cout << chunks[i]->getBlocks() << std::endl;
+        }
+    }
+
     Game::Game(const int width,
                const int height,
                const GLfloat fps,
@@ -91,20 +100,6 @@ namespace Minecraft
 
     void Game::init() {
         glLoadIdentity();
-        texture[BRICK].loadTexture("../resources/images/brick.png");
-        texture[WOOD].loadTexture("../resources/images/wood.png");
-        texture[PAINTED].loadTexture("../resources/images/painted_brick.png");
-
-        // Carregando texturas de cubemap
-        const std::vector<std::string> faces = {
-            "../resources/images/grass_block_side.png",
-            "../resources/images/grass_block_side.png",
-            "../resources/images/grass_block_top.png",
-            "../resources/images/dirt.png",
-            "../resources/images/grass_block_side.png",
-            "../resources/images/grass_block_side.png"
-        };
-        texture[GRASS].loadCubemap(faces); // Carregar cubemap
 
         glClearColor(0.0f, 0.0, 0.0f, 1.0f);
         //glEnable(GL_CULL_FACE);

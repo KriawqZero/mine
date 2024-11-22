@@ -61,7 +61,9 @@ set(RESOURCE_FILES resources/resources.rc
         sources/World/Terrain/Terrain.cpp
         sources/World/Terrain/Terrain.hpp
         sources/World/WorldGen/Chunk.cpp
-        sources/World/WorldGen/Chunk.hpp)
+        sources/World/WorldGen/Chunk.hpp
+        sources/Shaders/Shaders.cpp
+        sources/Shaders/Shaders.hpp)
 
 add_executable(mine ${SOURCE_FILES} ${RESOURCE_FILES})
 

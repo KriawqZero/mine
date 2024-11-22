@@ -5,6 +5,7 @@
 #include "Block.hpp"
 
 #include <GL/gl.h>
+#include <GLFW/glfw3.h>
 
 #include "../../Texture/Texture.hpp"
 
@@ -106,9 +107,10 @@ namespace World {
         glm::vec3 v8(-d,  d,-d);
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        auto* blockTexture = new Texture();
-        blockTexture->loadTexture("../resources/images/dirt.png");
-        blockTexture->bind();
+        auto* blockTexture = getTexture(type);
+        if(blockTexture == nullptr) {
+            std::cerr << "Block texture is null" << std::endl;
+        } else  blockTexture->bind();
         drawFace(v1, v2, v3, v4, FRONT); //frente
         drawFace(v4, v3, v6, v5, RIGHT); //direita
         drawFace(v5, v8, v7, v6, BACK); //atrás
@@ -119,24 +121,24 @@ namespace World {
         Texture::unbind();
     }
 
-    // Texture* Block::getTexture(const BLOCKTYPE type) {
-    //     Texture texture;
-    //     switch (type) {
-    //         case GRASS:
-    //             texture.loadTexture("../resources/images/grass_block_top.png");
-    //             return &texture;
-    //         case DIRT:
-    //             texture.loadTexture("../resources/images/dirt.png");
-    //             return &texture;
-    //         case STONE:
-    //             texture.loadTexture("../resources/images/stone.png");
-    //             return &texture;
-    //         case BEDROCK:
-    //             texture.loadTexture("../resources/images/bedrock.png");
-    //             return &texture;
-    //         default:
-    //             std::cerr << "Unknown block type" << std::endl;
-    //             return &texture;
-      //  }
-   // }
+    Texture* Block::getTexture(const BLOCKTYPE type) {
+        Texture* texture = new Texture();;
+        switch (type) {
+            case GRASS:
+                texture->loadTexture("../resources/images/grass_block_top.png");
+                return texture;
+            case DIRT:
+                texture->loadTexture("../resources/images/dirt.png");
+                return texture;
+            case STONE:
+                texture->loadTexture("../resources/images/stone.png");
+                return texture;
+            case BEDROCK:
+                texture->loadTexture("../resources/images/bedrock.png");
+                return texture;
+            default:
+                std::cerr << "Unknown block type" << std::endl;
+                return nullptr;
+       }
+   }
 }

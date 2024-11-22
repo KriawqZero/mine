@@ -26,6 +26,7 @@ namespace Minecraft {
             //Camera* getCamera() {return &camera; }
             void getObjects() const;
             void getPosition() const;
+            void getChunkData() const;
 
         private:
             std::atomic<bool> running;

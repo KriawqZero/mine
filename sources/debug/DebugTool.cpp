@@ -2,7 +2,7 @@
 // Created by Marcilio on 22/11/2024.
 //
 
-#include "ImGui.hpp"
+#include "DebugTool.hpp"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>

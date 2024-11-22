@@ -24,11 +24,12 @@ namespace World {
     }
 
     void Chunk::displayChunk() const {
-        for (int i = 0; i < blocks.size(); i++) {
-            blocks[i].Render();
+        for (const auto & block : blocks) {
+            block.Render();
         }
     }
 
+    // ReSharper disable once CppDFAConstantFunctionResult
     std::string Chunk::getBlocks() const {
         std::string str = " \n";
         for (auto& block : blocks) {
@@ -54,9 +55,8 @@ namespace World {
         for (int i = startX; i < endX; i++) {
             for (int j = startZ; j < endZ; j++) {
                 // Cria e adiciona o bloco à lista
-                const auto temp_block = new Block(glm::vec3(i, y, j), Block::GRASS);
-                temp_block->makeBlock();
-                blocks.push_back(*temp_block);
+                blocks.emplace_back(glm::vec3(i, y, j), Blockold::GRASS);
+                blocks.back().makeBlock();
             }
         }
     }

@@ -6,14 +6,14 @@
 #define CHUNK_HPP
 #include <glm/detail/type_vec1.hpp>
 
-#include "../Block/Block.hpp"
+#include "../Block/Blockold.hpp"
 
 namespace World {
     class Chunk {
         public:
             Chunk(int x, int z);
             ~Chunk();
-            std::vector<Block> blocks;
+            std::vector<Blockold> blocks;
             void generateChunk();
             void displayChunk() const;
 

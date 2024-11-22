@@ -10,13 +10,12 @@
 
 #include "imgui_impl_opengl3.h"
 #include "imgui.h"
-#include "../debug/ImGui.hpp"
+#include "../debug/DebugTool.hpp"
 
 #include "GLFW/glfw3.h"
 #include "../GameHelpers/Miscellaneous/GameHelper.hpp"
 #include "../GameHelpers/Camera/Camera.hpp"
-#include "../World/Block/Block.hpp"
-#include "../World/Sphere/Sphere.hpp"
+#include "../World/Block/Blockold.hpp"
 #include "../World/Terrain/Terrain.hpp"
 
 namespace Minecraft
@@ -63,7 +62,7 @@ namespace Minecraft
         std::cout << "Criando bloco em: " << x << ", " << y << ", " << z << std::endl;
 
         // Cria o bloco na posição fornecida
-        auto* newBlock = new World::Block(glm::vec3(x, y, z), World::Block::STONE);
+        auto* newBlock = new World::Blockold(glm::vec3(x, y, z), World::Blockold::STONE);
         newBlock->makeBlock();
 
         // Se você precisar adicionar o bloco à lista de blocos ou chunks
@@ -133,8 +132,8 @@ namespace Minecraft
         glLoadIdentity();
 
         glClearColor(0.0f, 0.0, 0.0f, 1.0f);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_CCW);
+        //glEnable(GL_CULL_FACE);
+        //glCullFace(GL_CCW);
         auto* terrain = new World::Terrain(glm::vec3(0.0f, -3.0f, 0.0f));
         terrain->BuildTerrain(500);
         objects.push_back(terrain);
@@ -159,11 +158,11 @@ namespace Minecraft
 
         debug::DebugTool::renderMainWindow();
 
-        for(auto* object : objects) {
+        for(const auto* object : objects) {
             object->Render();
         }
 
-        for(auto* chunk: chunks) {
+        for(const auto* chunk: chunks) {
             chunk->displayChunk();
         }
 
@@ -191,7 +190,7 @@ namespace Minecraft
 
     // ReSharper disable once CppMemberFunctionMayBeStatic
     void Game::finish() { // NOLINT(*-convert-member-functions-to-static)
-        glDisable(GL_CULL_FACE);
+        //glDisable(GL_CULL_FACE);
         debug::DebugTool::DestroyDebugTool();
     }
 
@@ -216,6 +215,7 @@ namespace Minecraft
 
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_TEXTURE_2D);
+        glShadeModel(GL_SMOOTH);
 
         init();
 

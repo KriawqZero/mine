@@ -8,7 +8,7 @@
 #include <string>
 #include <GLFW/glfw3.h>
 
-#include "../debug/ImGui.hpp"
+#include "../debug/DebugTool.hpp"
 #include "../GameHelpers/Miscellaneous/GameHelper.hpp"
 #include "../GameHelpers/Camera/Camera.hpp"
 #include "../Texture/Texture.hpp"
@@ -20,15 +20,15 @@ namespace Minecraft {
             Game(int width, int height, GLfloat fps,
                 const std::string &title, const std::string &version);
             // ~Game();
-            void debugConsole();
+            //void debugConsole();
             int run();
             void spawnBlock(GLfloat x, GLfloat y, GLfloat z);
             //Camera* getCamera() {return &camera; }
             void getObjects() const;
 
             [[nodiscard]] glm::vec3 getPosition() const;
-            std::string getChunkData() const;
-            std::string getChunksPos() const;
+            [[nodiscard]] std::string getChunkData() const;
+            [[nodiscard]] std::string getChunksPos() const;
             void genNewChunk(int x, int y);
             debug::DebugTool debugTool;
 
@@ -43,8 +43,6 @@ namespace Minecraft {
             Misc::GameHelper gameHelper;
             GLfloat deltaTime;
 
-            enum {BRICK, PAINTED, WOOD, GRASS};
-            Texture texture[4];
             std::vector<World::Primitive*> objects;
             std::vector<World::Chunk*> chunks;
 

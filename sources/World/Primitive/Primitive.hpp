@@ -21,7 +21,7 @@ namespace World {
             void setPosition(glm::vec3 newPosition);
             void Render() const;
 
-            std::string getPosition() const;
+            [[nodiscard]] std::string getPosition() const;
     };
 }
 

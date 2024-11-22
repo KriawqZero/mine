@@ -8,13 +8,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(OpenGL REQUIRED)
 
 # Incluir diretórios para GLFW
-include_directories(${CMAKE_SOURCE_DIR}/resources/OpenGL/include
+include_directories(${CMAKE_SOURCE_DIR}/vendor/OpenGL/include
                     ${CMAKE_SOURCE_DIR}/source/include
-                    ${CMAKE_SOURCE_DIR}/resources/stb_image)
-link_directories(${CMAKE_SOURCE_DIR}/resources/OpenGL/lib)
+                    ${CMAKE_SOURCE_DIR}/vendor/stb_image
+                    ${CMAKE_SOURCE_DIR}/vendor/imgui
+                    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends)
+link_directories(${CMAKE_SOURCE_DIR}/vendor/OpenGL/lib)
 
 add_custom_target(glutdlllib
-        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/resources/OpenGL/lib/glut32.dll ${CMAKE_BINARY_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/vendor/OpenGL/lib/glut32.dll ${CMAKE_BINARY_DIR}
 )
 
 # required .lib files to be copied into compiler's proper directory
@@ -54,18 +56,35 @@ set(SOURCE_FILES sources/main.cpp
 
                  sources//World/Primitive/Primitive.cpp
                  sources/World/Primitive/Primitive.hpp
-        sources/GameHelpers/Callbacks/Callbacks.cpp
-        sources/GameHelpers/Callbacks/Callbacks.hpp)
 
-set(RESOURCE_FILES resources/resources.rc
-        sources/World/Terrain/Terrain.cpp
-        sources/World/Terrain/Terrain.hpp
-        sources/World/WorldGen/Chunk.cpp
-        sources/World/WorldGen/Chunk.hpp
-        sources/Shaders/Shaders.cpp
-        sources/Shaders/Shaders.hpp)
+                 sources/GameHelpers/Callbacks/Callbacks.cpp
+                 sources/GameHelpers/Callbacks/Callbacks.hpp
 
-add_executable(mine ${SOURCE_FILES} ${RESOURCE_FILES})
+                 sources/World/Terrain/Terrain.cpp
+                 sources/World/Terrain/Terrain.hpp
+
+                 sources/World/WorldGen/Chunk.cpp
+                 sources/World/WorldGen/Chunk.hpp
+
+                 sources/debug/ImGui.cpp
+                 sources/debug/ImGui.hpp)
+
+set(RESOURCE_FILES resources/resources.rc)
+set(IMGUI_FILES vendor/imgui/backends/imgui_impl_glfw.cpp
+                vendor/imgui/backends/imgui_impl_glfw.h
+                vendor/imgui/backends/imgui_impl_opengl2.cpp
+                vendor/imgui/backends/imgui_impl_opengl2.h
+                vendor/imgui/backends/imgui_impl_opengl3.cpp
+                vendor/imgui/backends/imgui_impl_opengl3.h
+                vendor/imgui/imgui.cpp
+                vendor/imgui/imgui.h
+                vendor/imgui/imgui_demo.cpp
+                vendor/imgui/imgui_draw.cpp
+                vendor/imgui/imgui_internal.h
+                vendor/imgui/imgui_tables.cpp
+                vendor/imgui/imgui_widgets.cpp)
+
+add_executable(mine ${SOURCE_FILES} ${RESOURCE_FILES} ${IMGUI_FILES})
 
 # Ligar bibliotecas necessárias
 target_link_libraries(mine ${OPENGL_LIBRARIES} ${OpenGlLibs} glfw3 opengl32 glm::glm)

@@ -4,21 +4,25 @@
 
 #ifndef CHUNK_HPP
 #define CHUNK_HPP
+#include <glm/detail/type_vec1.hpp>
+
 #include "../Block/Block.hpp"
 
 namespace World {
     class Chunk {
         public:
-            Chunk();
+            Chunk(int x, int z);
             ~Chunk();
             std::vector<Block> blocks;
             void generateChunk();
             void displayChunk() const;
 
-            std::string getBlocks() const;
+            [[nodiscard]] std::string getBlocks() const;
+            [[nodiscard]] glm::vec3 getPosition() const;
 
         private:
             int size, height;
+            int x, z;
 
             void genBlockLine(int y);
     };

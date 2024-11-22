@@ -8,10 +8,10 @@
 #include <string>
 #include <GLFW/glfw3.h>
 
+#include "../debug/ImGui.hpp"
 #include "../GameHelpers/Miscellaneous/GameHelper.hpp"
 #include "../GameHelpers/Camera/Camera.hpp"
 #include "../Texture/Texture.hpp"
-#include "../World/Terrain/Terrain.hpp"
 #include "../World/WorldGen/Chunk.hpp"
 
 namespace Minecraft {
@@ -25,8 +25,12 @@ namespace Minecraft {
             void spawnBlock(GLfloat x, GLfloat y, GLfloat z);
             //Camera* getCamera() {return &camera; }
             void getObjects() const;
-            void getPosition() const;
-            void getChunkData() const;
+
+            [[nodiscard]] glm::vec3 getPosition() const;
+            std::string getChunkData() const;
+            std::string getChunksPos() const;
+            void genNewChunk(int x, int y);
+            debug::DebugTool debugTool;
 
         private:
             std::atomic<bool> running;
@@ -52,6 +56,7 @@ namespace Minecraft {
 
             void init();
             void update();
+            void finish();
     };
 }
 

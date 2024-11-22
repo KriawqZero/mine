@@ -5,18 +5,20 @@
 #ifndef TEXTURA_H
 #define TEXTURA_H
 #include <iostream>
+#include <map>
 #include <vector>
 
 class Texture {
     private:
         unsigned int id;
         int width, height, channels;
-
     public:
         Texture();
         ~Texture();
+
         void loadTexture(const std::string& filePath);
         void loadCubemap(const std::vector<std::string>& faces);
+
         void bind() const;
         static void unbind();
 };

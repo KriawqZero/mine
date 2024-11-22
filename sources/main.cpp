@@ -9,10 +9,10 @@ int main() {
     Minecraft::Game game(1280, 720, FPS_LIMIT,
         PROJECT_NAME, PROJECT_VERSION);
 
-    std::thread debugConsoleThread([&game] { game.debugConsole(); });
+    //std::thread debugConsoleThread([&game] { game.debugConsole(); });
 
     game.run();
 
-    debugConsoleThread.join();
+    //debugConsoleThread.join();
     return 0;
 }

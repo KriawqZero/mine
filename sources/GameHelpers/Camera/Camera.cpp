@@ -4,10 +4,13 @@
 
 #include "Camera.hpp"
 
+#include <imgui.h>
 #include <iostream>
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 #include <GL/glu.h>
+
+struct ImGuiIO;
 
 namespace GameHelpers {
     Camera::Camera(const glm::vec3 position, int width, int height) {
@@ -43,8 +46,8 @@ namespace GameHelpers {
 
         if(yaw > 360 || yaw < -360)
             yaw = 0;
-        if(pitch >= 90) pitch = 89;
-        if(pitch <= -90) pitch = -89.0;
+        if(pitch >=89) pitch = 89;
+        if(pitch <= -89) pitch = -89.0;
 
 
         const glm::vec3 lookPosition = position + direction;
@@ -64,9 +67,9 @@ namespace GameHelpers {
 
         // Movimento para a direita (D) e para a esquerda (A)
         if (keyStates[GLFW_KEY_D])
-            moveDirection -= left * velocity; // Move para a direita
+            moveDirection -= glm::vec3(left.x, 0.0f, left.z) * velocity; // Move para a direita
         if (keyStates[GLFW_KEY_A])
-            moveDirection += left * velocity; // Move para a esquerda
+            moveDirection += glm::vec3(left.x, 0.0f, left.z) * velocity; // Move para a esquerda
 
         // Movimento para cima (Space) e para baixo (Shift)
         if (keyStates[GLFW_KEY_SPACE])
@@ -127,6 +130,12 @@ namespace GameHelpers {
     }
 
     void Camera::cameraInput_MouseCallback(GLFWwindow *window, double xpos, double ypos) {
+        ImGuiIO& io = ImGui::GetIO();
+
+        // Ignore cliques do mouse se ele estiver interagindo com o ImGui
+        if (io.WantCaptureMouse) {
+            return; // O ImGui está capturando o mouse, ignore os callbacks
+        }
         auto *camera = static_cast<Camera *>(glfwGetWindowUserPointer(window));
         //direção em x (yaw)
 
@@ -148,6 +157,12 @@ namespace GameHelpers {
     }
 
     void Camera::windowFocusCallback(GLFWwindow *window, int focused) {
+        ImGuiIO& io = ImGui::GetIO();
+
+        // Ignore eventos de foco da janela se o ImGui estiver ativo
+        if (io.WantCaptureKeyboard || io.WantTextInput) {
+            return; // O ImGui está capturando eventos de teclado, ignore os callbacks
+        }
         auto *camera = static_cast<Camera *>(glfwGetWindowUserPointer(window));
         if (focused) {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -159,6 +174,12 @@ namespace GameHelpers {
     }
 
     void Camera::mouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
+        ImGuiIO& io = ImGui::GetIO();
+
+        // Ignore cliques do mouse se ele estiver interagindo com o ImGui
+        if (io.WantCaptureMouse) {
+            return; // O ImGui está capturando o mouse, ignore os callbacks
+        }
         auto *camera = static_cast<Camera *>(glfwGetWindowUserPointer(window));
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
             if(!camera->isMouseFocused) {
@@ -179,7 +200,7 @@ namespace GameHelpers {
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(45.0f, aspectRatio, 0.1f, 500.0f);
+        gluPerspective(60.0f, aspectRatio, 0.1f, 500.0f);
         glMatrixMode(GL_MODELVIEW);
     }
 }

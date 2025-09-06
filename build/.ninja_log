@@ -1,0 +1,21 @@
+# ninja log v6
+706	2246	1757173556470584700	CMakeFiles/mine.dir/vendor/imgui/imgui_widgets.cpp.o	ddf60e38d3ba0189
+37	2176	1757173555800847000	CMakeFiles/mine.dir/vendor/imgui/imgui.cpp.o	b12b08123b25f8a5
+617	2133	1757173556381207300	CMakeFiles/mine.dir/vendor/imgui/imgui_draw.cpp.o	a0c80d54fed70a87
+645	1670	1757173556408683400	CMakeFiles/mine.dir/vendor/imgui/imgui_tables.cpp.o	381a5ef992be0c02
+90	1271	1757173555854529000	CMakeFiles/mine.dir/vendor/imgui/imgui_demo.cpp.o	4afcb3e52d28bf26
+3	30	1757173555767138700	CMakeFiles/mine.dir/src/debug/colors.cpp.o	a94509ffe2b0b863
+2	932	1757173555766504900	CMakeFiles/mine.dir/src/main.cpp.o	8b7f3f112769d5f1
+3	983	1757173555767333300	CMakeFiles/mine.dir/src/GameHelpers/Camera/Camera.cpp.o	49599a5ce5a07a75
+5	36	1757173555768618600	CMakeFiles/mine.dir/src/GameHelpers/Callbacks/Callbacks.cpp.o	4982a03897d6b4c5
+4	89	1757173555767744700	CMakeFiles/mine.dir/src/GameHelpers/Miscellaneous/GameHelper.cpp.o	2b4aaacac50d3e37
+3	644	1757173555766989000	CMakeFiles/mine.dir/src/World/Block/Block.cpp.o	ca53a224d740bc8c
+4	706	1757173555768272000	CMakeFiles/mine.dir/src/World/Primitive/Primitive.cpp.o	4e73a9724434784
+5	730	1757173555769097500	CMakeFiles/mine.dir/src/World/WorldGen/Chunk.cpp.o	2c3378a9df6b50af
+4	1313	1757173555767961400	CMakeFiles/mine.dir/src/Texture/Texture.cpp.o	8211609f947cfea1
+31	890	1757173555795010300	CMakeFiles/mine.dir/src/debug/ImGui.cpp.o	f622dae20df929ba
+5	589	1757173555768861200	CMakeFiles/mine.dir/src/World/Terrain/Terrain.cpp.o	98fefdb332dbdc6f
+731	956	1757173556494918700	CMakeFiles/mine.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.o	b1ad2e497c6684e1
+3	1058	1757173555766754800	CMakeFiles/mine.dir/src/Game/Game.cpp.o	97aeaa9745a0bba5
+3	831	1757173555767543900	CMakeFiles/mine.dir/src/World/Sphere/Sphere.cpp.o	4877435963f80202
+832	1014	1757173556596176400	CMakeFiles/mine.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.o	a76e1a32905f555e

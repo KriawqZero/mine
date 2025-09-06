@@ -1,0 +1,7 @@
+/home/marcilio/Home-shared/Projetos/mine/build/CMakeFiles/mine.dir
+/home/marcilio/Home-shared/Projetos/mine/build/CMakeFiles/edit_cache.dir
+/home/marcilio/Home-shared/Projetos/mine/build/CMakeFiles/rebuild_cache.dir
+/home/marcilio/Home-shared/Projetos/mine/build/_deps/glm-build/CMakeFiles/edit_cache.dir
+/home/marcilio/Home-shared/Projetos/mine/build/_deps/glm-build/CMakeFiles/rebuild_cache.dir
+/home/marcilio/Home-shared/Projetos/mine/build/_deps/glm-build/glm/CMakeFiles/edit_cache.dir
+/home/marcilio/Home-shared/Projetos/mine/build/_deps/glm-build/glm/CMakeFiles/rebuild_cache.dir

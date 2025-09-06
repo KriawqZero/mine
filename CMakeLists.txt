@@ -1,91 +1,105 @@
-cmake_minimum_required(VERSION 3.29)
-project(mine)
-
+cmake_minimum_required(VERSION 3.20)
+project(mine LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Encontrar e incluir OpenGL
-find_package(OpenGL REQUIRED)
+# Opcional: Ninja -> cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
 
-# Incluir diretórios para GLFW
-include_directories(${CMAKE_SOURCE_DIR}/vendor/OpenGL/include
-                    ${CMAKE_SOURCE_DIR}/source/include
-                    ${CMAKE_SOURCE_DIR}/vendor/stb_image
-                    ${CMAKE_SOURCE_DIR}/vendor/imgui
-                    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends)
-link_directories(${CMAKE_SOURCE_DIR}/vendor/OpenGL/lib)
-
-add_custom_target(glutdlllib
-        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/vendor/OpenGL/lib/glut32.dll ${CMAKE_BINARY_DIR}
-)
-
-# required .lib files to be copied into compiler's proper directory
-set(OpenGlLibs glut32)
-
+# GLAD via FetchContent
 include(FetchContent)
 FetchContent_Declare(
-        glm
-        GIT_REPOSITORY	https://github.com/g-truc/glm.git
-        GIT_TAG 	    bf71a834948186f4097caa076cd2663c69a10e1e #refs/tags/1.0.1
+  glad
+  GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+  GIT_TAG v2.0.4
+)
+FetchContent_MakeAvailable(glad)
+
+# GLM via FetchContent (ou use glm-devel do Fedora e remova esta seção)
+FetchContent_Declare(
+  glm
+  GIT_REPOSITORY https://github.com/g-truc/glm.git
+  GIT_TAG bf71a834948186f4097caa076cd2663c69a10e1e
 )
 FetchContent_MakeAvailable(glm)
 
-# Definir os arquivos fonte
-set(SOURCE_FILES sources/main.cpp
+find_package(OpenGL REQUIRED)       # fornece OpenGL::GL
+find_package(PkgConfig REQUIRED)
+find_package(Threads REQUIRED)
 
-                 sources/Game/Game.cpp
-                 sources/Game/Game.hpp
+# GLFW do sistema
+find_package(glfw3 REQUIRED)
 
-                 sources/World/Block/Block.cpp
-                 sources/World/Block/Block.hpp
+# Fontes
+set(SOURCE_FILES
+  src/main.cpp
+  src/Game/Game.cpp
+  src/Game/Game.hpp
+  src/World/Block/Block.cpp
+  src/World/Block/Block.hpp
+  src/debug/colors.cpp
+  src/debug/colors.h
+  src/GameHelpers/Camera/Camera.cpp
+  src/GameHelpers/Camera/Camera.hpp
+  src/World/Sphere/Sphere.cpp
+  src/World/Sphere/Sphere.hpp
+  src/GameHelpers/Miscellaneous/GameHelper.cpp
+  src/GameHelpers/Miscellaneous/GameHelper.hpp
+  src/Texture/Texture.cpp
+  src/Texture/Texture.hpp
+  src/World/Primitive/Primitive.cpp      # corrigido: remove "//"
+  src/World/Primitive/Primitive.hpp
+  src/GameHelpers/Callbacks/Callbacks.cpp
+  src/GameHelpers/Callbacks/Callbacks.hpp
+  src/World/Terrain/Terrain.cpp
+  src/World/Terrain/Terrain.hpp
+  src/World/WorldGen/Chunk.cpp
+  src/World/WorldGen/Chunk.hpp
+  src/debug/ImGui.cpp
+  src/debug/ImGui.hpp
+)
 
-                 sources/debug/colors.cpp
-                 sources/debug/colors.h
+# ImGui (use apenas backends GL3 + GLFW no Linux)
+set(IMGUI_FILES
+  vendor/imgui/imgui.cpp
+  vendor/imgui/imgui_demo.cpp
+  vendor/imgui/imgui_draw.cpp
+  vendor/imgui/imgui_tables.cpp
+  vendor/imgui/imgui_widgets.cpp
+  vendor/imgui/backends/imgui_impl_glfw.cpp
+  vendor/imgui/backends/imgui_impl_opengl3.cpp
+)
 
-                 sources/GameHelpers/Camera/Camera.cpp
-                 sources/GameHelpers/Camera/Camera.hpp
+add_executable(mine
+  ${SOURCE_FILES}
+  ${IMGUI_FILES}
+)
 
-                 sources/World/Sphere/Sphere.cpp
-                 sources/World/Sphere/Sphere.hpp
+# Includes do projeto
+target_include_directories(mine PRIVATE
+  ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/vendor/imgui
+  ${CMAKE_SOURCE_DIR}/vendor/imgui/backends
+)
 
-                 sources/GameHelpers/Miscellaneous/GameHelper.cpp
-                 sources/GameHelpers/Miscellaneous/GameHelper.hpp
+# Definições para ImGui OpenGL3 backend com GLAD
+target_compile_definitions(mine PRIVATE
+  IMGUI_IMPL_OPENGL_LOADER_GLAD
+  # Ajuste o GLSL almejado conforme sua pipeline
+  IMGUI_IMPL_OPENGL_ES3=0
+)
 
-                 sources/Texture/Texture.cpp
-                 sources/Texture/Texture.hpp
+# Linkagem
+target_link_libraries(mine PRIVATE
+  glad::glad
+  glfw
+  OpenGL::GL
+  Threads::Threads
+  glm::glm
+)
 
-                 sources//World/Primitive/Primitive.cpp
-                 sources/World/Primitive/Primitive.hpp
+# Em alguns ambientes pode precisar de dl
+find_library(LIB_DL dl)
+if(LIB_DL)
+  target_link_libraries(mine PRIVATE ${LIB_DL})
+endif()
 
-                 sources/GameHelpers/Callbacks/Callbacks.cpp
-                 sources/GameHelpers/Callbacks/Callbacks.hpp
-
-                 sources/World/Terrain/Terrain.cpp
-                 sources/World/Terrain/Terrain.hpp
-
-                 sources/World/WorldGen/Chunk.cpp
-                 sources/World/WorldGen/Chunk.hpp
-
-                 sources/debug/ImGui.cpp
-                 sources/debug/ImGui.hpp)
-
-set(RESOURCE_FILES resources/resources.rc)
-set(IMGUI_FILES vendor/imgui/backends/imgui_impl_glfw.cpp
-                vendor/imgui/backends/imgui_impl_glfw.h
-                vendor/imgui/backends/imgui_impl_opengl2.cpp
-                vendor/imgui/backends/imgui_impl_opengl2.h
-                vendor/imgui/backends/imgui_impl_opengl3.cpp
-                vendor/imgui/backends/imgui_impl_opengl3.h
-                vendor/imgui/imgui.cpp
-                vendor/imgui/imgui.h
-                vendor/imgui/imgui_demo.cpp
-                vendor/imgui/imgui_draw.cpp
-                vendor/imgui/imgui_internal.h
-                vendor/imgui/imgui_tables.cpp
-                vendor/imgui/imgui_widgets.cpp)
-
-add_executable(mine ${SOURCE_FILES} ${RESOURCE_FILES} ${IMGUI_FILES})
-
-# Ligar bibliotecas necessárias
-target_link_libraries(mine ${OPENGL_LIBRARIES} ${OpenGlLibs} glfw3 opengl32 glm::glm)
-add_dependencies(mine glutdlllib)
